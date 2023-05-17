@@ -7,7 +7,7 @@ export default function LoginSuccessfull() {
   const router = useRouter()
 
   const authorizeSpotify = () => {
-    axios.get(`http://localhost:3000/api/v1/spotify/callback?code=${router.query.code}`).then((response) => {
+    axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/spotify/callback?code=${router.query.code}`).then((response) => {
       const data = response.data
       window.localStorage.setItem('spotify_access_token', data.access_token)
       window.localStorage.setItem('spotify_refresh_token', data.refresh_token)

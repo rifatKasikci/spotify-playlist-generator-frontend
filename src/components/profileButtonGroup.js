@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import spotifyIcon from '../../public/spotify-icon-white.png';
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 
 export default function SpotifyButton({text, href}) {
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('user')))
@@ -34,7 +33,7 @@ export default function SpotifyButton({text, href}) {
             src={user ? user.images[0].url : spotifyIcon}
             width={28}
             height={28}
-            className='mr-2 h-[32px] w-[32px] border-solid border-2 border-black  rounded-full w-8 h-8'
+            className='mr-2 h-[32px] w-[32px] border-solid border-2 border-black  rounded-full'
             />
             <p className='items-center text-center mt-1'>{user?.display_name} ({user?.product})</p>
         </div>

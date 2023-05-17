@@ -6,7 +6,7 @@ import axios from 'axios'
 
 export default function SpotifyButton({text, href}) {
     const handleSpotifyLogin = () => {
-        axios.get("http://localhost:3000/api/v1/spotify/getSpotifyAuthUri")
+        axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + "/spotify/getSpotifyAuthUri")
         .then((response) => {
             const timeout = setTimeout(() => {
                 window.location.replace(response.data);

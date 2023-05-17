@@ -36,7 +36,7 @@ export default function Create() {
       isPublic: isPublic
     }
     const access_token = window.localStorage.getItem('spotify_access_token')
-    axios.post('http://localhost:3000/api/v1/musics/suggest/suggestAndAddToPlaylist', body, {
+    axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + '/musics/suggest/suggestAndAddToPlaylist', body, {
       headers: {
         'access_token': access_token
       }
@@ -44,7 +44,7 @@ export default function Create() {
       if (window.localStorage.getItem('spotify_refresh_token')) {
         window.localStorage.removeItem('spotify_access_token')
         window.localStorage.removeItem('user')
-        axios.post("http://localhost:3000/api/v1/spotify/refreshToken", null, {
+        axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + "/spotify/refreshToken", null, {
           headers: {
             refresh_token: window.localStorage.getItem('spotify_refresh_token')
           }

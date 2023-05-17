@@ -10,7 +10,7 @@ export default function Navbar() {
     const [user, setUser] = useState()
 
     const getUser = () => {
-        axios.post("http://localhost:3000/api/v1/spotify/getUserDetails", null, {
+        axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + "/spotify/getUserDetails", null, {
             headers: {
                 'access_token': window.localStorage.getItem('spotify_access_token')
             }
@@ -22,7 +22,7 @@ export default function Navbar() {
             if (response.data.error && response.data.error.status === 401) {
                 window.localStorage.removeItem('spotify_access_token')
                 window.localStorage.removeItem('user')
-                axios.post("http://localhost:3000/api/v1/spotify/refreshToken", null, {
+                axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + "/spotify/refreshToken", null, {
                     headers:{
                         refresh_token : window.localStorage.getItem('spotify_refresh_token')
                     }
