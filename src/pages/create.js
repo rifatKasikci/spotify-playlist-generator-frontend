@@ -8,6 +8,7 @@ export default function Create() {
   const router = useRouter()
 
   const [prompt, setPrompt] = useState('')
+  const [playlistCreating, setPlaylistCreating] = useState(false)
 
   const checkUserLogin = () => {
     if (window.localStorage.getItem('spotify_access_token') === null) {
@@ -25,6 +26,7 @@ export default function Create() {
   }
 
   const handleSubmit = (e) => {
+    setPlaylistCreating(true)
     const playlistName = e.target[0].value
     const playlistDescription = e.target[1].value
     const isPublic = e.target[2].value
@@ -40,6 +42,11 @@ export default function Create() {
       headers: {
         'access_token': access_token
       }
+    }).then((data) => {
+      console.log(data.data)
+      setTimeout(() => {
+        router.push(data.data.playlistUrl);
+      }, 500);
     }).catch((error) => {
       if (window.localStorage.getItem('spotify_refresh_token')) {
         window.localStorage.removeItem('spotify_access_token')
@@ -86,7 +93,9 @@ export default function Create() {
               <input type="text" onChange={handleChange} value={prompt} id="prompt" name="prompt" required className="w-full px-4 py-2 rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 border-2" />
             </div>
             <div className="flex justify-center">
-              <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Create Playlist</button>
+              <button type="submit" disabled={playlistCreating} className={`bg-green-500 text-white py-2 px-4 rounded ${playlistCreating ? null : "hover:bg-green-600"}`}>
+                {playlistCreating ? 'Creating Playlist...' : 'Create Playlist'}
+              </button>
             </div>
           </form>
         </div>
